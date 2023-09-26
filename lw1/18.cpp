@@ -2,6 +2,10 @@
 Организовать в основной памяти с помощью указателей стек из очередей.
 Обеспечить операции ведения очереди из вершины стека,
 расширения и сокращения стека, выдачи содержимого стека.
+
+Владимир Шибаков.
+C++
+Visual Studio Code
 */
 
 #include <iostream>
@@ -51,15 +55,33 @@ void popS(stack *&p)
     delete temp;
 }
 
-void printS(stack *p)
+void printQ(queue *p)
 {
-    std::cout << "\nHere are all stack elements: ";
     while (p)
     {
-        std::cout << p -> data << "  ";
+        std::cout << p -> qData << "  ";
+        p = p -> nextQ;
+    }
+}
+
+void printS(stack *p)
+{
+    std::cout << "\nHere are all stack elements:\n";
+    while (p)
+    {
+        std::cout << p -> data << " --> ";
+        if (p -> front)
+        {
+            printQ(p -> front);
+        }
+        else
+        {
+            std::cout << "no queue in this element";
+        }
+        std::cout << "\n";
         p = p -> next;
     }
-    std::cout << "\n\n";
+    std::cout << "\n";
 }
 
 void clearS(stack *&p)
@@ -83,9 +105,11 @@ void pushQ(stack *&p, std::string elem)
     {
         p -> front = p -> back = newNode;
     }
-
-    p -> back -> nextQ = newNode;
-    p -> back = newNode;
+    else
+    {
+        p -> back -> nextQ = newNode;
+        p -> back = newNode;
+    }
 
     std::cout << "Element \"" << elem << "\" added to queue.\n\n";
 }
@@ -102,17 +126,6 @@ void popQ(stack *&p)
 
     std::cout << "\nElement \"" << temp -> qData << "\" removed from queue.\n\n";
     delete temp;
-}
-
-void printQ(queue *p)
-{
-    std::cout << "\nHere are all queue elements: ";
-    while (p)
-    {
-        std::cout << p -> qData << "  ";
-        p = p -> nextQ;
-    }
-    std::cout << "\n\n";
 }
 
 int main()
@@ -215,11 +228,13 @@ int main()
                     {
                         if (top -> front)
                         {
+                            std::cout << "\nHere are all queue elements: ";
                             printQ(top -> front);
                         } else
                         {
-                            std::cout << "\nQueue is empty!\n\n";
+                            std::cout << "\nQueue is empty!";
                         }
+                        std::cout << "\n\n";
                     }
 
                     if (answerQ == '4')
