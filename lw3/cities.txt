@@ -1,0 +1,5 @@
+1 Moscow
+2 Saint_Petersburg
+3 Novosibirsk
+4 Yekaterinburg
+5 Kazan
