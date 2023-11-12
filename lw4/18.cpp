@@ -22,7 +22,7 @@ Visual Studio Code
 void fillField(std::vector<std::vector<char>>& field, int& positionX, int& positionY);
 void initField(std::vector<std::vector<char>>& field, const int& width, const int& height);
 void countCapturedAndPrint(std::vector<std::vector<char>>& field, const int& positionX, const int& positionY);
-void getMaxNumberOfCaptured(std::vector<std::vector<char>> field, const int& posX, const int& posY, int& max, int count);
+void getMaxNumberOfCaptured(std::vector<std::vector<char>>& field, const int& posX, const int& posY, int& max, int& count);
 
 int main()
 {
@@ -112,7 +112,7 @@ void countCapturedAndPrint(std::vector<std::vector<char>>& field, const int& pos
     }
 }
 
-void getMaxNumberOfCaptured(std::vector<std::vector<char>> field, const int& posX, const int& posY, int& max, int count)
+void getMaxNumberOfCaptured(std::vector<std::vector<char>>& field, const int& posX, const int& posY, int& max, int& count)
 {  
     if (field[posX + 1][posY + 1] == '1' && field[posX + 2][posY + 2] == '0')
     {
@@ -122,6 +122,11 @@ void getMaxNumberOfCaptured(std::vector<std::vector<char>> field, const int& pos
         count++;
         getMaxNumberOfCaptured(field, posX + 2, posY + 2, max, count);
         max = std::max(max, count);
+
+        field[posX][posY] = '2';
+        field[posX + 1][posY + 1] = '1';
+        field[posX + 2][posY + 2] = '0';
+        count--;
     }
 
     if (field[posX - 1][posY + 1] == '1' && field[posX - 2][posY + 2] == '0')
@@ -132,6 +137,11 @@ void getMaxNumberOfCaptured(std::vector<std::vector<char>> field, const int& pos
         count++;
         getMaxNumberOfCaptured(field, posX - 2, posY + 2, max, count);
         max = std::max(max, count);
+
+        field[posX][posY] = '2';
+        field[posX - 1][posY + 1] = '1';
+        field[posX - 2][posY + 2] = '0';
+        count--;
     }
 
     if (field[posX - 1][posY - 1] == '1' && field[posX - 2][posY - 2] == '0')
@@ -142,6 +152,11 @@ void getMaxNumberOfCaptured(std::vector<std::vector<char>> field, const int& pos
         count++;
         getMaxNumberOfCaptured(field, posX - 2, posY - 2, max, count);
         max = std::max(max, count);
+
+        field[posX][posY] = '2';
+        field[posX - 1][posY - 1] = '1';
+        field[posX - 2][posY - 2] = '0';
+        count--;
     }
 
     if (field[posX + 1][posY - 1] == '1' && field[posX + 2][posY - 2] == '0')
@@ -152,5 +167,10 @@ void getMaxNumberOfCaptured(std::vector<std::vector<char>> field, const int& pos
         count++;
         getMaxNumberOfCaptured(field, posX + 2, posY - 2, max, count);
         max = std::max(max, count);
+
+        field[posX][posY] = '2';
+        field[posX + 1][posY - 1] = '1';
+        field[posX + 2][posY - 2] = '0';
+        count--;
     }
 }
