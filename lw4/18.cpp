@@ -19,8 +19,8 @@ Visual Studio Code
 #include <vector>
 #include <algorithm>
 
-void fillField(std::vector<std::vector<char>>& field, int& positionX, int& positionY);
 void initField(std::vector<std::vector<char>>& field, const int& width, const int& height);
+void fillField(std::vector<std::vector<char>>& field, int& positionX, int& positionY);
 void countCapturedAndPrint(std::vector<std::vector<char>>& field, const int& positionX, const int& positionY);
 void getMaxNumberOfCaptured(std::vector<std::vector<char>>& field, const int& posX, const int& posY, int& max, int& count);
 
@@ -32,6 +32,19 @@ int main()
     fillField(field, whitePiecePositionX, whitePiecePositionY);
 
     countCapturedAndPrint(field, whitePiecePositionX, whitePiecePositionY);
+}
+
+void initField(std::vector<std::vector<char>>& field, const int& width, const int& height)
+{
+    field.resize(width + 2);
+    for (int i = 0; i < width + 2; ++i)
+    {
+        field[i].resize(height + 2);
+        for (int j = 0; j < height + 2; ++j)
+        {
+            field[i][j] = '-';
+        }
+    }
 }
 
 void fillField(std::vector<std::vector<char>>& field, int& positionX, int& positionY)
@@ -77,19 +90,6 @@ void fillField(std::vector<std::vector<char>>& field, int& positionX, int& posit
     else
     {
         std::cout << "Couldn't open the file input.txt\n";
-    }
-}
-
-void initField(std::vector<std::vector<char>>& field, const int& width, const int& height)
-{
-    field.resize(width + 2);
-    for (int i = 0; i < width + 2; ++i)
-    {
-        field[i].resize(height + 2);
-        for (int j = 0; j < height + 2; ++j)
-        {
-            field[i][j] = '-';
-        }
     }
 }
 
